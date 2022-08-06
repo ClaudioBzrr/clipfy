@@ -15,9 +15,8 @@ async function listVideos(path:string){
     const mergedVideo =  ffmpeg()
 
     const videos =  fs.readdirSync(path)
-
     videos.forEach(e => mergedVideo.addInput(path+e))
-    mergedVideo.mergeToFile('teste1.mp4')
+    mergedVideo.mergeToFile(`./src/output/${Date.now()}.mp4`)
     .on('error',err => console.log('Error : ',err))
     .on('end',() =>console.log('Merged videos successfull'))
 
@@ -27,4 +26,4 @@ async function listVideos(path:string){
 
 
 
-listVideos("D:\\Jogadas\\Outplayed\\Valorant\\Valorant_08-06-2022_14-19-37-134\\")
+listVideos("D:\\Jogadas\\Outplayed\\Valorant\\Valorant_08-06-2022_15-8-13-734\\")
