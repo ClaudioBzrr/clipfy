@@ -1,29 +1,26 @@
-import ffmpeg from 'fluent-ffmpeg'
-import fs from 'fs'
+import 'dotenv/config'
+import Express from 'express'
+import cors from 'cors'
+import { routes } from './routes'
+import { uploadFile } from './util/upload'
+
+const port =  process.env.SERVER_PORT
+const server =  Express()
+
+server.use(cors())
+server.use(routes)
+server.use(Express.static('/public/output/'))
 
 
-const ffmpegpath =  require('@ffmpeg-installer/ffmpeg').path
-const ffprobePath =  require('@ffprobe-installer/ffprobe').path
 
-
-ffmpeg.setFfmpegPath(ffmpegpath)
-ffmpeg.setFfprobePath(ffprobePath)
-
-async function listVideos(path:string){
-    
-    
-    const mergedVideo =  ffmpeg()
-
-    const videos =  fs.readdirSync(path)
-    videos.forEach(e => mergedVideo.addInput(path+e))
-    mergedVideo.mergeToFile(`./src/output/${Date.now()}.mp4`)
-    .on('error',err => console.log('Error : ',err))
-    .on('end',() =>console.log('Merged videos successfull'))
-
-    
-}
+server.listen(port || process.env.port,()=>{
+    console.log(`Server running on port ${port} or ${process.env.port}`)
+})
 
 
 
 
-listVideos("D:\\Jogadas\\Outplayed\\Valorant\\Valorant_08-06-2022_15-8-13-734\\")
+
+
+
+
