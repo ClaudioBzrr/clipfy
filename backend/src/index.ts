@@ -2,14 +2,13 @@ import 'dotenv/config'
 import Express from 'express'
 import cors from 'cors'
 import { routes } from './routes'
-import { uploadFile } from './util/upload'
-
+import path from 'path'
 const port =  process.env.SERVER_PORT
 const server =  Express()
 
 server.use(cors())
 server.use(routes)
-server.use(Express.static('/public/output/'))
+server.use('/src/public/output/',Express.static(path.join(__dirname,'/src/public/output/')))
 
 
 

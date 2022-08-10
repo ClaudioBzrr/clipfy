@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { api } from "../service/api"
 
 
@@ -16,7 +17,9 @@ interface multerFilesProps{
 export function Home() {
 
   const [files,setFiles] =  useState<any>()
-
+  const [selected,setSelected] = useState<boolean>(false)
+  const [download,setDownload] =  useState<string>('')
+  const [loading,setLoading] =  useState<boolean>(false)
 
 
   async function handleSendVideo(e:FormEvent){
@@ -31,22 +34,42 @@ export function Home() {
     
     try{
       
-      const resp:multerFilesProps[] = await api.post('/upload',formData).then(response => response.data)
-
-      alert(resp)
-
+      const file = await api.post('/upload',formData).then(response => response.data)
+      setDownload(`${api.getUri()}/download/${file}`)
 
     }catch(err){
       alert(`Erro : ${err}`)
     }
   }
   return (
-    <div>
-      <form onSubmit={e => handleSendVideo(e)} encType="multipart/form-data">
-        <label htmlFor="videos">Select an file</label>
-        <input type="file" name="videos" required multiple onChange={e => setFiles(e.target.files)} />
-        <button type="submit" >Enviar</button>
-      </form>
+    <div className="w-auto h-screen flex flex-col items-center justify-center text-center">
+        {
+          !loading&&(
+
+           download != '' ? (
+            <a href={download} type="download" target='__blank'>Download</a>
+           ):
+            <form
+              className="max-w-3xl h-72 bg-slate-700 flex flex-row" 
+              onSubmit={e => handleSendVideo(e)} 
+              encType="multipart/form-data"
+            >
+              <label htmlFor="videos">Selecione os arquivos</label>
+              <input
+                onChangeCapture={() =>setSelected(true)}  
+                type="file" name="videos"
+                required multiple onChange={e => setFiles(e.target.files)}
+              />
+              {
+                selected &&(
+
+                  <button type="submit" >Enviar</button>
+
+                )
+              }
+            </form>
+          )
+        }
     </div>
   )
 }

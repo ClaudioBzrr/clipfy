@@ -3,4 +3,4 @@
 *.mp4
 /output
 /input
-/public
+/src/public
