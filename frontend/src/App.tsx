@@ -5,7 +5,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {
-          routes.map(({path,component}) => <Route path={path} element={component}/>)
+          routes.map(({path,component}, index) => <Route key={index.toString()} path={path} element={component}/>)
         }
       </Routes>
     </BrowserRouter>
