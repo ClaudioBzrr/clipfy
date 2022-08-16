@@ -32,13 +32,15 @@ export function Home() {
 
 
 
-  function handleClick(){
-    inputHidden.current?.click()
+  function handleClick(e:Event){
+    e.preventDefault()
+    inputHidden.current && inputHidden.current?.click()
+    
   }
 
 
   function handleSelectFile(){
-    if(files){
+    if(files && files.length > 0){
       const aux  =  new Array()
       for (let index = 0; index < files.length; index++) {
         aux.push(files.item(index))
@@ -88,23 +90,26 @@ export function Home() {
                   <div>
 
                     <button
+                      type="button"
                       className="w-96 rounded-sm border-solid p-2 border-black border-[1px] flex flex-col align-middle items-center justify-center"
-                      onClick={() =>handleClick()}
+                      onClick={e =>handleClick(e.nativeEvent)}
                     >
                       Escolher Arquivos
                     </button>
                     <input
                       ref={inputHidden}
                       className="hidden"
-                      onChangeCapture={() =>handleSelectFile()}  
+                      onChangeCapture={() =>handleSelectFile()}
                       type="file"
                       accept="video/*"
-                      required multiple onChange={e => setFiles(e.currentTarget.files)}
+                      required
+                      multiple
+                      onChange={e => setFiles(e.currentTarget.files)}
 
                     />
                   </div>
                 ):(
-                  <>
+                  <div>
                     <button type="submit">Enviar</button>
                     {
                       data.map(({name},index)=>{
@@ -113,7 +118,7 @@ export function Home() {
                         )
                       })
                     }
-                  </>
+                  </div>
                 )
 
               }
