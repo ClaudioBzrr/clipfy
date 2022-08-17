@@ -1,3 +1,4 @@
+import { Error404 } from "./pages/Errors/404";
 import { Home } from "./pages/Home";
 
 export const routes =[
@@ -11,10 +12,10 @@ export const routes =[
     },
     {
         path:'/',
-        component:<></>
+        component:<Home/>
     },
     {
         path:'*',
-        component:<></>
+        component:<Error404/>
     }
 ]
