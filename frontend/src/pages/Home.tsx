@@ -39,12 +39,14 @@ export function Home() {
   }
 
 
-  function handleSelectFile(){
-    if(files && files.length > 0){
+  function handleSelectFile(fileList:FileList|null){
+  
+    if(fileList && fileList.length > 0){
       const aux  =  new Array()
-      for (let index = 0; index < files.length; index++) {
-        aux.push(files.item(index))
+      for (let index = 0; index < fileList.length; index++) {
+        aux.push(fileList.item(index))
       }
+      setFiles(fileList)
       setData(aux)
       setSelected(true)
     }
@@ -99,12 +101,12 @@ export function Home() {
                     <input
                       ref={inputHidden}
                       className="hidden"
-                      onChangeCapture={() =>handleSelectFile()}
+                      // onChangeCapture={() =>handleSelectFile()}
                       type="file"
                       accept="video/*"
                       required
                       multiple
-                      onChange={e => setFiles(e.currentTarget.files)}
+                      onChange={e => handleSelectFile(e.currentTarget.files)}
 
                     />
                   </div>
