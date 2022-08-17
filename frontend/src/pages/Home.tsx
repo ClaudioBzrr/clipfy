@@ -144,13 +144,19 @@ export function Home() {
                       </button>
 
                     </div>
-                    {
-                      data.map(({name},index)=>{
-                        return(
-                          <div key={index}>{name}</div>
-                        )
-                      })
-                    }
+                    <div className="bg-slate-800 w-full h-72 scrollbar-thin scrollbar-thumb-slate-300 mt-5 rounded-lg border-slate-300 border-[1px] border-solid overflow-y-auto">
+                      {
+                        data.map(({name,size},index)=>{
+                          return(
+                            <div
+                              className="w-full py-2 text-slate-300 font-semibold border-b-[1px] border-b-slate-300" 
+                              key={index}
+                            >{name} - {(size/1024000).toFixed(2)} MB
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
                   </div>
                 )
 
