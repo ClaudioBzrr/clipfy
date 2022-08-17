@@ -112,7 +112,6 @@ export function Home() {
                     <input
                       ref={inputHidden}
                       className="hidden"
-                      // onChangeCapture={() =>handleSelectFile()}
                       type="file"
                       accept="video/*"
                       required
@@ -137,9 +136,9 @@ export function Home() {
                       <button
                         className="w-auto h-auto p-2 ml-2 bg-red-700 rounded-lg border-slate-300 border-[1px] border-solid text-slate-300 " 
                         type="button"
+                        onClick={e => handleClearFiles(e.nativeEvent)}
                       >
                         <Trash
-                          onClick={e => handleClearFiles(e.nativeEvent)}
                           size={24}
                         />
                       </button>
