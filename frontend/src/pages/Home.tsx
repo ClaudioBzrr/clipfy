@@ -151,7 +151,7 @@ export function Home() {
                             <div
                               className="w-full py-2 text-slate-300 font-semibold border-b-[1px] border-b-slate-300" 
                               key={index}
-                            >{name} - {(size/1024000).toFixed(2)} MB
+                            >{name} - {(size/1024000).toFixed(1)} MB
                             </div>
                           )
                         })
