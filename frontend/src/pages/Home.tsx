@@ -1,5 +1,5 @@
-import { FormEvent, InputHTMLAttributes, useRef, useState} from "react"
-import { useNavigate } from "react-router-dom"
+import { CloudArrowUp, FileArrowUp, Trash, UploadSimple } from "phosphor-react"
+import { FormEvent, useRef, useState} from "react"
 import { api } from "../service/api"
 
 
@@ -52,6 +52,13 @@ export function Home() {
     }
   }
 
+  function handleClearFiles(e:Event){
+    e.preventDefault()
+
+    setFiles(null)
+    setData([])
+    setSelected(false)
+  }
 
   async function handleSendVideo(e:FormEvent){
     console.log('Sending files...')
@@ -93,9 +100,13 @@ export function Home() {
 
                     <button
                       type="button"
-                      className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-col align-middle items-center justify-center"
+                      className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-row  align-middle items-center justify-center"
                       onClick={e =>handleClick(e.nativeEvent)}
                     >
+                      <FileArrowUp
+                      className="mr-3"
+                        size={32}
+                      />
                       Escolher Arquivos
                     </button>
                     <input
@@ -111,8 +122,29 @@ export function Home() {
                     />
                   </div>
                 ):(
-                  <div>
-                    <button type="submit">Enviar</button>
+                  <div  className="flex flex-col">
+                    <div className="flex felx-row">
+                      <button 
+                        type="submit"
+                        className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-row align-middle items-center justify-center"
+                      >
+                        <UploadSimple
+                          className="mr-3" 
+                          size={32}
+                        />
+                        Enviar
+                      </button>
+                      <button
+                        className="w-auto h-auto p-2 ml-2 bg-red-700 rounded-lg border-slate-300 border-[1px] border-solid text-slate-300 " 
+                        type="button"
+                      >
+                        <Trash
+                          onClick={e => handleClearFiles(e.nativeEvent)}
+                          size={24}
+                        />
+                      </button>
+
+                    </div>
                     {
                       data.map(({name},index)=>{
                         return(
