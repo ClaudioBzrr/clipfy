@@ -93,7 +93,7 @@ export function Home() {
 
                     <button
                       type="button"
-                      className="w-96 rounded-sm border-solid p-2 border-black border-[1px] flex flex-col align-middle items-center justify-center"
+                      className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-col align-middle items-center justify-center"
                       onClick={e =>handleClick(e.nativeEvent)}
                     >
                       Escolher Arquivos
