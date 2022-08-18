@@ -1,5 +1,6 @@
-import { CloudArrowUp, FileArrowUp, Trash, UploadSimple } from "phosphor-react"
+import { ArrowLeft, DownloadSimple, FileArrowUp, Trash, UploadSimple } from "phosphor-react"
 import { FormEvent, useRef, useState} from "react"
+import { Loading } from "../components/Loading"
 import { api } from "../service/api"
 
 
@@ -31,11 +32,25 @@ export function Home() {
   const [data,setData] =  useState<dataProps[]>([])
 
 
-
   function handleClick(e:Event){
     e.preventDefault()
     inputHidden.current && inputHidden.current?.click()
     
+  }
+
+  function handleGoBack(e:Event){
+    e.preventDefault()
+    handleClearFiles(e)
+    setDownload('')
+  }
+
+
+  function sumSize(arr:dataProps[]):number{
+    const sizes = new Array()
+
+    arr.forEach(e => sizes.push(e.size))
+
+    return sizes.reduce((acu,cur) => acu+cur)
   }
 
 
@@ -61,6 +76,7 @@ export function Home() {
   }
 
   async function handleSendVideo(e:FormEvent){
+    setLoading(true)
     console.log('Sending files...')
     e.preventDefault()
     const formData = new FormData()
@@ -79,15 +95,32 @@ export function Home() {
     }catch(err){
       alert(`Erro : ${err}`)
     }
+    setLoading(false)
   }
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center text-center">
     <title>Clipfy</title>
         {
-          !loading&&(
+          !loading ?(
 
            download != '' ? (
-            <a href={download} type="download" target='__blank'>Download</a>
+            <div className="w-full h-full bg-slate-700 flex flex-row items-center justify-center" >
+
+              <button
+                type="button"
+                className="rounded-full p-2 bg-slate-600 text-slate-300 mr-3"
+                onClick={e => handleGoBack(e.nativeEvent)}
+              >
+                <ArrowLeft size={32} />
+              </button>
+              <a 
+                className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-row  align-middle items-center justify-center"
+                href={download} type="download" target='__blank'
+              >
+                <DownloadSimple className="mr-2" size={32} />
+                Download</a>
+
+            </div>
            ):(
 
               <form
@@ -143,9 +176,14 @@ export function Home() {
                           size={24}
                         />
                       </button>
+                      <div className="text-slate-300 absolute ml-[calc(100vw*0.25)] text-center py-2 font-semibold">
+                        {
+                          `Total de ${(sumSize(data)/1024000).toFixed(1)} MB`  
+                        }
+                      </div>
 
                     </div>
-                    <div className="bg-slate-800 w-full h-72 scrollbar-thin scrollbar-thumb-slate-300 mt-5 rounded-lg border-slate-300 border-[1px] border-solid overflow-y-auto">
+                    <div className="bg-slate-800 w-full max-h-72 scrollbar-thin scrollbar-thumb-slate-300 mt-5 rounded-lg border-slate-300 border-[1px] border-solid overflow-y-auto">
                       {
                         data.map(({name,size},index)=>{
                           return(
@@ -158,12 +196,19 @@ export function Home() {
                         })
                       }
                     </div>
+                    <div className="text-slate-300  mt-3 font-semibold">
+                      {
+                        data.length >1 ? `${data.length} arquivos selecionados.`:`${data.length} arquivo selecionado.`
+                      }
+                    </div>
                   </div>
                 )
 
               }
               </form>
               )
+           ):(
+            <Loading/>
            )
         }
     </div>

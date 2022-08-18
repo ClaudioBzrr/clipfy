@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/index.ts",
     "test":"ts-node ./src/util/VideoMerger.ts",
-    "postinstall": "mkdirp public && mkdirp ./src/public/input && mkdirp ./src/public/input"
+    "postinstall": "mkdirp ./src/public/input && mkdirp ./src/public/output"
   },
   "keywords": [],
   "author": "",
