@@ -176,7 +176,7 @@ export function Home() {
                           size={24}
                         />
                       </button>
-                      <div className="text-slate-300 absolute ml-[calc(100vw*0.25)] text-center py-2 font-semibold">
+                      <div className="text-slate-300 absolute ml-[calc(100vw*0.33)] max-w-[calc(100vw*0.33)] text-center py-2 font-semibold">
                         {
                           `Total de ${(sumSize(data)/1024000).toFixed(1)} MB`  
                         }
