@@ -54,10 +54,10 @@ export function Home() {
     arr.forEach(e => sizes.push(e.size))
     const totalSize = sizes.reduce((acu,cur) => acu+cur)/1000
     if( totalSize > 500){
+      toast.error('Arquivos maiores que 500 MB',{id:'error500mb'})
       setFiles(null)
       setData([])
       setSelected(false)
-      toast.error('Arquivos maiores que 500 MB',{id:'error500mb'})
 
     }else{
       return sizes.reduce((acu,cur) => acu+cur)
@@ -162,7 +162,11 @@ export function Home() {
                       accept="video/*"
                       required
                       multiple
-                      onChange={e => handleSelectFile(e.currentTarget.files)}
+                      onChange={e => {
+                        toast.remove('error500mb')
+                        toast.dismiss()
+                        handleSelectFile(e.currentTarget.files)
+                      }}
 
                     />
                   </div>
