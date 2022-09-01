@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import {Route,Routes,BrowserRouter} from 'react-router-dom'
 import {routes} from './Routes'
 export default function App() {

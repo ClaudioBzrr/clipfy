@@ -2,6 +2,9 @@ import { ArrowLeft, DownloadSimple, FileArrowUp, Trash, UploadSimple } from "pho
 import { FormEvent, useRef, useState} from "react"
 import { Loading } from "../components/Loading"
 import { api } from "../service/api"
+import toast, { Toaster } from 'react-hot-toast'
+
+
 
 
 interface multerFilesProps{
@@ -45,12 +48,20 @@ export function Home() {
   }
 
 
-  function sumSize(arr:dataProps[]):number{
+  function sumSize(arr:dataProps[]){
     const sizes = new Array()
 
     arr.forEach(e => sizes.push(e.size))
+    const totalSize = sizes.reduce((acu,cur) => acu+cur)/1000
+    if( totalSize > 500){
+      setFiles(null)
+      setData([])
+      setSelected(false)
+      toast.error('Arquivos maiores que 500 MB',{id:'error500mb'})
 
-    return sizes.reduce((acu,cur) => acu+cur)
+    }else{
+      return sizes.reduce((acu,cur) => acu+cur)
+    }
   }
 
 
@@ -99,10 +110,11 @@ export function Home() {
   }
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center text-center">
+    <Toaster/>
     <title>Clipfy</title>
+
         {
           !loading ?(
-
            download != '' ? (
             <div className="w-full h-full bg-slate-700 flex flex-row items-center justify-center" >
 
@@ -127,11 +139,11 @@ export function Home() {
                 className="w-full h-full bg-slate-700 flex flex-row items-center justify-center" 
                 onSubmit={e => handleSendVideo(e)} 
                 encType="multipart/form-data"
-              >{
+              >
+                {
 
                 selected ==false?(
                   <div>
-
                     <button
                       type="button"
                       className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-row  align-middle items-center justify-center"
