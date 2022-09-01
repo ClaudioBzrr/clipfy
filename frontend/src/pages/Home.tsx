@@ -52,7 +52,7 @@ export function Home() {
     const sizes = new Array()
 
     arr.forEach(e => sizes.push(e.size))
-    const totalSize = sizes.reduce((acu,cur) => acu+cur)/1000
+    const totalSize = sizes.reduce((acu,cur) => acu+cur)/1024000
     if( totalSize > 500){
       toast.error('Arquivos maiores que 500 MB',{id:'error500mb'})
       setFiles(null)
