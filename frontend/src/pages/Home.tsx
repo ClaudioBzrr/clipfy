@@ -146,7 +146,7 @@ export function Home() {
                   <div>
                     <button
                       type="button"
-                      className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-gradient-to-r from-violet-900 to-violet-400 border-slate-300 border-[1px] flex flex-row  align-middle items-center justify-center"
+                      className="w-96 h-10 font-bold text-slate-300 rounded-lg bg-slate-900 hover:bg-slate-800 border-slate-300 border-[1px] flex flex-row  align-middle items-center justify-center transition-all ease-linear duration-300"
                       onClick={e =>handleClick(e.nativeEvent)}
                     >
                       <FileArrowUp
