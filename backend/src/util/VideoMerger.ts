@@ -2,10 +2,12 @@ import ffmpeg from 'fluent-ffmpeg'
 import fs from 'fs'
 const ffmpegpath =  require('@ffmpeg-installer/ffmpeg').path
 const ffprobePath =  require('@ffprobe-installer/ffprobe').path
-
+import { v4  as idGenerator} from 'uuid'
 
 ffmpeg.setFfmpegPath(ffmpegpath)
 ffmpeg.setFfprobePath(ffprobePath)
+
+const new_id = idGenerator()
 
 export async function merger(path:string):Promise<string>{
     
@@ -13,7 +15,7 @@ export async function merger(path:string):Promise<string>{
 
     
     return new Promise<string>((reject, resolve)=>{
-        const filenameModified = `${Date.now()}`
+        const filenameModified = `${new_id}`
         const named =  `./src/public/output/${filenameModified}.mp4`
         const videos =  fs.readdirSync(path)
         
@@ -21,7 +23,10 @@ export async function merger(path:string):Promise<string>{
         mergedVideo.mergeToFile(named)
         .on('progress', progress =>{
             if(progress){
-                console.log(`Rendering ${progress.percent.toFixed(0)}%`)
+                // if(progress.percent){
+
+                    console.log(`Rendering ${progress.percent.toFixed(0)}%`)
+                // }
             }
         })
         .on('error',err => {
