@@ -11,7 +11,6 @@ server.use(routes)
 server.use('/src/public/output/',Express.static(path.join(__dirname,'/src/public/output/')))
 
 
-
 server.listen(port || process.env.port,()=>{
     console.log(`Server running on port ${port} or ${process.env.port}`)
 })

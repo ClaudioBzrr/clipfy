@@ -167,6 +167,7 @@ export function Home() {
                         toast.dismiss()
                         handleSelectFile(e.currentTarget.files)
                       }}
+                      name="videos"
 
                     />
                   </div>

@@ -6,7 +6,7 @@ import path from 'path'
 export const routes =  Router()
 
 
-const upload = uploadFile.array('videos',100)
+const upload = uploadFile.array('videos',200)
 
 
 routes.get('/download/:file',(req,res)=>{
