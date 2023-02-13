@@ -1,6 +1,6 @@
 # clipfy
-<p>A simple app to concat your videoclips</p>
-
+<p>A simple app to concat your video clips</p>
+<p>build with React js, Vite,Node js and FFMPEG</p>
 <p align="center">
   <img width="830" height="264" src="https://user-images.githubusercontent.com/39713988/206911630-9c78ee8b-93de-47fe-8a1f-6e9937e17e3f.PNG"/>
 </p>
